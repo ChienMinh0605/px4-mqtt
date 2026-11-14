@@ -1,0 +1,6 @@
+[commander-op1-1794646988183] connect_attempt: tcp://172.28.0.10:1883
+[commander-op1-1794646988183] connected: connect onSuccess called
+[commander-op1-1794646988183] connection_lost
+[commander-op1-1794646988183] connected: automatic reconnect
+[commander-op1-1794646988183] disconnected
+Tong: gui 100 lenh | accepted=73 rejected:expired=27 | khu hoi trung vi 42 ms, p95 7412 ms

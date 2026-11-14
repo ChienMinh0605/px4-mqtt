@@ -1,0 +1,4 @@
+time_ms,client_id,event,detail
+1794649869172,gateway-01,connect_attempt,tcp://172.28.0.10:1883
+1794649869398,gateway-01,connected,connect onSuccess called
+1794649933600,gateway-01,disconnected,

@@ -1,0 +1,15 @@
+PING 172.28.0.10 (172.28.0.10) 56(84) bytes of data.
+64 bytes from 172.28.0.10: icmp_seq=1 ttl=64 time=0.205 ms
+64 bytes from 172.28.0.10: icmp_seq=2 ttl=64 time=0.116 ms
+64 bytes from 172.28.0.10: icmp_seq=3 ttl=64 time=0.033 ms
+64 bytes from 172.28.0.10: icmp_seq=4 ttl=64 time=0.074 ms
+64 bytes from 172.28.0.10: icmp_seq=5 ttl=64 time=0.050 ms
+64 bytes from 172.28.0.10: icmp_seq=6 ttl=64 time=0.087 ms
+64 bytes from 172.28.0.10: icmp_seq=7 ttl=64 time=0.092 ms
+64 bytes from 172.28.0.10: icmp_seq=8 ttl=64 time=0.071 ms
+64 bytes from 172.28.0.10: icmp_seq=9 ttl=64 time=0.098 ms
+64 bytes from 172.28.0.10: icmp_seq=10 ttl=64 time=0.044 ms
+
+--- 172.28.0.10 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 1867ms
+rtt min/avg/max/mdev = 0.033/0.087/0.205/0.046 ms

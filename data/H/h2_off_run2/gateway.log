@@ -1,0 +1,14 @@
+Gateway boot_id=1794646867938 source=fake qos=1 buffer=on cmd-safety=off scenario=N0 run=1 -> data/H/h2_off_run2
+[gateway-01] connect_attempt: tcp://172.28.0.10:1883
+[gateway-01] connected: connect onSuccess called
+Dang dung Gateway...
+[gateway-01] disconnected
+Tong: sent=60 buffered=0 dropped=0
+Gateway boot_id=1794646885395 source=fake qos=1 buffer=on cmd-safety=off scenario=N0 run=1 -> data/H/h2_off_run2
+[gateway-01] connect_attempt: tcp://172.28.0.10:1883
+[gateway-01] connected: connect onSuccess called
+lenh: 1794646885511,op1,1794646874273,goto,1794646874273,11238,0,0,accepted,
+sent=104 buffered=0 dropped=0
+Dang dung Gateway...
+[gateway-01] disconnected
+Tong: sent=188 buffered=0 dropped=0

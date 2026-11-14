@@ -1,0 +1,2 @@
+cmd_id=1794646784018 goto -> timeout, khu hoi -1 ms
+Tong: gui 1 lenh | timeout=1
