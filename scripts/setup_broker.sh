@@ -12,22 +12,28 @@ if ! docker network inspect mqttnet >/dev/null 2>&1; then
   docker network create --subnet 172.28.0.0/24 mqttnet
 fi
 
-# Chuẩn bị file mật khẩu và quyền thư mục dữ liệu TRƯỚC khi khởi động Broker,
-# bằng một container tạm (chạy quyền root bên trong): tạo/cập nhật tài khoản,
-# rồi trả quyền cho user mosquitto. Cần làm vậy vì khi chép repo sang máy khác,
-# các file này thuộc user của máy mới và Mosquitto không đọc được, nên không khởi động nổi.
+# Broker chạy bằng chính user của máy (không phải user mosquitto 1883 trong image),
+# nên file mật khẩu và dữ liệu luôn thuộc về mình: chép repo sang máy khác hay để
+# repo trên ổ NTFS dùng chung với Windows (không đổi được chủ file) vẫn chạy được.
+RUN_AS="$(id -u):$(id -g)"
+
+# Tạo/cập nhật tài khoản MQTT bằng một container tạm, chạy cùng user đó.
 [ -e mosquitto/config/passwd ] || touch mosquitto/config/passwd
-docker run --rm --entrypoint sh \
+docker run --rm --user "$RUN_AS" --entrypoint sh \
   -v "$PWD/mosquitto/config:/mosquitto/config" \
-  -v "$PWD/mosquitto/data:/mosquitto/data" \
   eclipse-mosquitto:2 -c "mosquitto_passwd -b /mosquitto/config/passwd '$MQTT_USER' '$MQTT_PASS' \
-    && chown mosquitto:mosquitto /mosquitto/config/passwd && chmod 0600 /mosquitto/config/passwd \
-    && chown -R mosquitto:mosquitto /mosquitto/data"
+    && chmod 0600 /mosquitto/config/passwd"
+
+# Container cũ tạo theo cách trước (chạy bằng user mosquitto) thì dựng lại.
+if docker container inspect broker >/dev/null 2>&1 \
+   && [ "$(docker inspect -f '{{.Config.User}}' broker)" != "$RUN_AS" ]; then
+  docker rm -f broker >/dev/null
+fi
 
 if docker container inspect broker >/dev/null 2>&1; then
   docker restart broker >/dev/null  # đọc lại file mật khẩu mới
 else
-  docker run -d --name broker --restart unless-stopped --network mqttnet --ip 172.28.0.10 -p 1883:1883 \
+  docker run -d --name broker --user "$RUN_AS" --restart unless-stopped --network mqttnet --ip 172.28.0.10 -p 1883:1883 \
     -v "$PWD/mosquitto/config:/mosquitto/config" \
     -v "$PWD/mosquitto/data:/mosquitto/data" \
     eclipse-mosquitto:2 >/dev/null
